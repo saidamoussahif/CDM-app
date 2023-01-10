@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const accountSchema = mongoose.Schema(
   {
-    client_id: {
+    user_id: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
-      ref: "Client",
+      ref: "User",
     },
     numero_compte:{
         type: String,

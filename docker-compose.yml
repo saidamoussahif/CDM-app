@@ -16,16 +16,11 @@ services:
     volumes:
       - data:/data/db
 
-    # our environment variable
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "saida1234"
-      MONGO_INITDB_ROOT_PASSWORD: "1234"
-
   # name is optional for our backend
-  Server:
+  server:
     # to build an image based on Dockerfile
     # it looks in this folder to find Dockerfile to build an image
-    build: ./Server
+    build: ./server
     # the port that we want to publish for backend
     ports:
       - "8000:8000"
@@ -35,24 +30,25 @@ services:
       - mymongodb
 
   # name is optional for our frontend
-  Client:
+  client:
     # to build an image based on Dockerfile
     # it looks in this folder to find Dockerfile to build an image
-    build: ./Client
+    build: ./client
 
     # the port that we want to publish for frontend
     ports:
       - "3000:3000"
     # add bind mount volume to keep have updated source code
     volumes:
-      - ./Client/app/
+      - ./client/src:/app/src
+
     # allow interactive mode
     stdin_open: true
     tty: true
 
     # it will start our frontend container once backend-container is  up and running.
     depends_on:
-      - Server
+      - server
 
 # declare the volumes name that our app is using.
 volumes:

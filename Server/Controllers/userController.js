@@ -1,4 +1,4 @@
-const Client = require("../Models/clientModel");
+const User = require("../Models/userModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -8,45 +8,46 @@ const jwt = require("jsonwebtoken");
 const Register = asyncHandler(async (req, res) => {
   // Our register logic starts here
   try {
-    // Get client input
-    const { fullname, phone, cin, adress, email, password } = req.body;
+    // Get user input
+    const { fullname, phone, cin, adress, email, password, role } = req.body;
 
-    // Validate client input
-    if (!(email && password && fullname && phone && cin && adress)) {
+    // Validate user input
+    if (!(email && password && fullname && phone && cin && adress, role)) {
       res.status(400).send("All input is required");
     }
 
-    // check if client already exist
-    // Validate if client exist in our database
-    const Clt = await Client.findOne({ email });
+    // check if user already exist
+    // Validate if user exist in our database
+    const CheckUser = await User.findOne({ email });
 
-    if (Clt) {
+    if (CheckUser) {
       return res.status(409).send("Email Already Exist. Please Login");
     }
 
-    //Encrypt client password
+    //Encrypt user password
     encryptedPass = await bcrypt.hash(password, 10);
 
-    // Create client in our database
-    const client = await Client.create({
+    // Create user in our database
+    const user = await User.create({
       fullname,
       phone,
       cin,
       adress,
       email,
       password: encryptedPass,
+      role
     });
      
-    // return new client
+    // return new user
     res.status(201).json({
-      _id: client.id,
-      // fullname: client.fullname,
-      // phone: client.phone,
-      // cin: client.cin,
-      // adress: client.adress,
-      email: client.email,
-      token: clientToken(client._id),
-      // role: client.role
+      _id: user.id,
+      // fullname: user.fullname,
+      // phone: user.phone,
+      // cin: user.cin,
+      // adress: user.adress,
+      email: user.email,
+      token: userToken(user._id),
+      role: user.role
     });
   } catch (err) {
     console.log(err);
@@ -58,14 +59,14 @@ const Login = asyncHandler(async (req, res) => {
   const { email, password} = req.body;
 
   // check email
-  const client = await Client.findOne({ email });
+  const user = await User.findOne({ email });
 
-  if (client && (await bcrypt.compare(password, client.password))) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     res
       .json({
-        token: clientToken(client._id),
-        // role: client.role,
-        Name: client.fullname,
+        token: userToken(user._id),
+        role: user.role,
+        Name: user.fullname,
       })
   } else {
     res.status(400).json({
@@ -75,7 +76,7 @@ const Login = asyncHandler(async (req, res) => {
 
 
  // Create token
- const clientToken =  (id) => {
+ const userToken =  (id) => {
   return jwt.sign({ id }, process.env.TOKEN, {
     expiresIn: '1d',
   })

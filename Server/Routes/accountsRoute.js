@@ -1,18 +1,21 @@
-const express = require('express');
-const { getAccounts, createAccount, updateAccount, deleteAccount } = require('./../Controllers/accountsControllers');
+const express = require("express");
+const {
+  getAccounts,
+  createAccount,
+  ConfirmationEmail,
+  updateAccount,
+  deleteAccount,
+} = require("./../Controllers/accountsControllers");
 
-const router= express.Router();
+const {verifyToken} = require('../Middlewares/Authen')
 
+const router = express.Router();
 
-router.route('/getAccounts').get(getAccounts);
-router.route('/createAccount').post(createAccount);
-router.route('/updateAccount/:id').put(updateAccount);
-router.route('/deleteAccount/:id').delete(deleteAccount);
-
-
-
-
-
+router.route("/getAccounts").get(verifyToken, getAccounts);
+router.route("/createAccount").post(verifyToken, createAccount);
+router.route('/confirm/:Email').post(verifyToken,ConfirmationEmail)
+router.route("/updateAccount/:id").put(verifyToken, updateAccount);
+router.route("/deleteAccount/:id").delete(verifyToken, deleteAccount);
 
 
 

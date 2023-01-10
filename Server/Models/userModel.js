@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const ClientSchema = mongoose.Schema(
+const UserSchema = mongoose.Schema(
   {
     fullname: {
       type: String,
@@ -28,15 +28,15 @@ const ClientSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    // role: {
-    //   type: String,
-    //   enum: ['user', 'admin'],
-    //   default: "user",
-    // },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: "user",
+    },
   },
   {
     timeTamps: true,
   }
 );
 
-module.exports = mongoose.model("Client",ClientSchema);
+module.exports = mongoose.model("User",UserSchema);

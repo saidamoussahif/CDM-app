@@ -12,8 +12,8 @@ function Login() {
         <div className="mx-auto container">
           <div className="flex items-center justify-center h-full w-full">
             <div className="bg-white rounded-md shadow fixed overflow-y-auto sm:h-auto w-10/12 md:w-8/12 lg:w-1/2 2xl:w-2/5">
-              <div className="bg-indigo-100 rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-center">
-                <p className="text-xl font-semibold text-indigo-500">
+              <div className="bg-[#e9f4ff] rounded-tl-md rounded-tr-md px-4 md:px-8 md:py-4 py-7 flex items-center justify-center">
+                <p className="text-xl font-semibold text-[#113e6e]">
                 Welcome back to your account!!
                 </p>
               </div>
@@ -47,7 +47,7 @@ function Login() {
                   >
                     Don't have an account?
                   </a>
-                  <button className="flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-opacity-80 shadow rounded text-sm text-white">
+                  <button className="flex items-center justify-center px-6 py-3 bg-[#113e6e] hover:bg-opacity-80 shadow rounded text-sm text-white">
                     Login
                   </button>
                 </div>

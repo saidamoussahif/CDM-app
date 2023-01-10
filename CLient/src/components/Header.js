@@ -38,31 +38,13 @@ function Header() {
                       Services{" "}
                     </a>
                   </li>
-                  {/* <li>
-                    <a
-                      href="/"
-                      className="dark:text-white dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
-                    >
-                      {" "}
-                      Women{" "}
-                    </a>
-                  </li> */}
-                  {/* <li> */}
-                    {/* <a
-                      href="/"
-                      className="dark:text-white dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
-                    >
-                      {" "}
-                      Kids{" "}
-                    </a>
-                  </li> */}
                   <li>
                     <a
-                      href="/"
+                      href="/about"
                       className="dark:text-white dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
                     >
                       {" "}
-                      Magazine{" "}
+                      About{" "}
                     </a>
                   </li>
                 </ul>

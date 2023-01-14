@@ -1,24 +1,24 @@
 import { React } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const deleteItems=()=> {
-  //   localStorage.clear();
-  //   navigate("/Login");
-  // }
+  const deleteItems=()=> {
+    localStorage.clear();
+    navigate("/Login");
+  }
 
   return (
     <div>
       <div className="h-full fixed">
         <aside className="w-64 h-full" aria-label="Sidebar">
-          <div className="overflow-y-auto py-4 px-3 bg-blue-900 rounded h-full dark:bg-indigo-0 flex flex-col justify-between">
+          <div className="overflow-y-auto py-4 px-3 bg-[#15449c] rounded h-full dark:bg-indigo-0 flex flex-col justify-between">
             <ul className="space-y-2">
               <li className="mt-4">
                 <a
                   href="/"
-                  className="flex items-center p-2 text-base font-normal text-blue-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-blue-700"
+                  className="flex items-center p-2 text-base font-normal text-[#15449c] rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-blue-700"
                 >
                   <svg
                     aria-hidden="true"
@@ -73,7 +73,7 @@ function Sidebar() {
             <ul className="pt-4 mt-4 space-y-2 border-t border-blue-200 dark:border-blue-700">
               <li>
                 <button
-                
+                onClick={deleteItems}
                   type="button"
                   className="flex items-center p-2 text-base font-normal text-blue-50 rounded-lg transition duration-75 hover:bg-blue-100 dark:hover:bg-blue-700 dark:text-white group"
                 >

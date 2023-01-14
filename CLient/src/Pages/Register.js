@@ -1,49 +1,23 @@
-import React from "react";
+import { React } from "react";
 import icon from "../imgs/user-symbol.png";
-import axios from "axios";
+// import axios from "axios";
+// import Error from '../components/Error'
+// import Loader from "../components/Loader";
 
 function Register() {
-  // fetch datat using axios
+  // const [fullname, setFullname] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [cin, setCin] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const [data, setData] = React.useState({
-    fullname: "",
-    phone: "",
-    cin: "",
-    adress: "",
-    email: "",
-    password: "",
-  });
+  // Password toggle handler
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post(" http://localhost:8000/api/users/register", data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  
   return (
     <>
       <div id="popup" className="z-50 fixed w-full flex justify-center inset-0">
-        <div
-          onclick="popuphandler(false)"
-          className="w-full h-full bg-gray-50 z-0 absolute inset-0"
-        />
+        <div className="w-full h-full bg-gray-50 z-0 absolute inset-0" />
         <div className="mx-auto container">
           <div className="flex items-center justify-center h-full w-full">
             <div className="bg-white rounded-md shadow fixed overflow-y-auto sm:h-auto w-10/12 md:w-8/12 lg:w-1/2 2xl:w-2/5">
@@ -58,15 +32,15 @@ function Register() {
                     <img src={icon} alt="user" width={40} height={40} />
                   </div>
                 </div>
-                <form className="mt-8" onSubmit={handleSubmit}>
+                <form className="mt-8">
                   <div className="flex items-center space-x-9">
                     <input
                       placeholder="Full Name"
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       type="text"
                       name="fullname"
-                      value={data.fullname}
-                      onChange={handleChange}
+                      onChange={this.handleChange}
+                      required
                     />
                     <input
                       placeholder="Phone"
@@ -74,8 +48,8 @@ function Register() {
                       min={0}
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       name="phone"
-                      value={data.phone}
-                      onChange={handleChange}
+                      onChange={this.handleChange}
+                      required
                     />
                   </div>
                   <div className="flex items-center space-x-9 mt-8">
@@ -84,16 +58,16 @@ function Register() {
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       type="text"
                       name="cin"
-                      value={data.cin}
-                      onChange={handleChange}
+                      onChange={this.handleChange}
+                      required
                     />
                     <input
                       placeholder="Adress"
                       type="text"
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       name="adress"
-                      value={data.adress}
-                      onChange={handleChange}
+                      onChange={this.handleChange}
+                      required
                     />
                   </div>
                   <div className="flex items-center space-x-9 mt-8">
@@ -101,17 +75,16 @@ function Register() {
                       placeholder="Email"
                       type="email"
                       name="email"
-                      value={data.email}
-                      onChange={handleChange}
+                      onChange={this.handleChange}
+                      required
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                     />
                     <input
                       placeholder="Password"
                       type="password"
                       name="password"
-                      value={data.password}
-                      onChange={handleChange}
-                      min={0}
+                      onChange={this.handleChange}
+                      required
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                     />
                   </div>
@@ -127,7 +100,7 @@ function Register() {
                     type="submit"
                     className="flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-opacity-80 shadow rounded text-sm text-white"
                   >
-                    Signup
+                    Submit
                   </button>
                 </div>
               </div>

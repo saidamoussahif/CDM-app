@@ -5,14 +5,22 @@ const Email = process.env.Email;
 const Pass = process.env.PASS;
 
 const getAccounts = async (req, res) => {
-  const accounts = await Account.find().populate("client_id");
+  const accounts = await Account.find().populate("user_id");
   res.status(200).json(accounts);
 };
 
 const createAccount = asyncHandler(async (req, res) => {
+  const AccountExists = await Account.findOne({
+    user_id: req.user.id,
+  });
+  if (AccountExists) {
+    res.status(400);
+    throw new Error("Account already exists");
+  }
+
   const Accounts = await Account.create({
     numero_compte: req.body.numero_compte,
-    user_id: req.body.user_id,
+    user_id: req.user.id,
     solde: req.body.solde,
     agence: req.body.agence,
   });

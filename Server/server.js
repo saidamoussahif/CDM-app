@@ -1,32 +1,23 @@
 const express = require("express");
-const mongoose = require('mongoose');
 const colors = require("colors");
+const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 const PORT = process.env.PORT || 8000;
-// const Auth = require("../server/Middlewares/Authen");
+const connectDB = require("./DB/db");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
 
 const app = express();
+app.use(cors());
+app.use(express.json());
 
-const dotenv = require("dotenv");
-mongoose.set("strictQuery", false);
-dotenv.config();
-
-
-// connect db
-const connectDB = require("./DB/db");
 connectDB();
-
-// app.post("/welcome", Auth, (req, res) => {
-//   res.status(200).send("Welcome 🙌 ");
-// });
 
 app.use(express.json());
 app.use("/api/users", require("./Routes/userRoute"));
 // app.use("/api/admin", require("./Routes/adminRoute.js"));
 app.use("/api/accounts", require("./Routes/accountsRoute.js"));
 app.use("/api/releveBancaires", require("./Routes/releveBancaireRoute.js"));
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 app.listen(PORT, () => console.log(`Server runing on ${PORT}`));

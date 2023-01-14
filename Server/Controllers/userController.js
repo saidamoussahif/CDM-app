@@ -9,10 +9,10 @@ const Register = asyncHandler(async (req, res) => {
   // Our register logic starts here
   try {
     // Get user input
-    const { fullname, phone, cin, adress, email, password, role } = req.body;
+    const { fullname, phone, cin, adress, email, password } = req.body;
 
     // Validate user input
-    if (!(email && password && fullname && phone && cin && adress, role)) {
+    if (!email || !password || !fullname || !phone || !cin || !adress) {
       res.status(400).send("All input is required");
     }
 
@@ -35,19 +35,17 @@ const Register = asyncHandler(async (req, res) => {
       adress,
       email,
       password: encryptedPass,
-      role
     });
-     
+
     // return new user
     res.status(201).json({
       _id: user.id,
-      // fullname: user.fullname,
-      // phone: user.phone,
-      // cin: user.cin,
-      // adress: user.adress,
+      fullname: user.fullname,
+      phone: user.phone,
+      cin: user.cin,
+      adress: user.adress,
       email: user.email,
       token: userToken(user._id),
-      role: user.role
     });
   } catch (err) {
     console.log(err);
@@ -55,31 +53,33 @@ const Register = asyncHandler(async (req, res) => {
   // Our register logic ends here
 });
 
+// *************************************************************************
 const Login = asyncHandler(async (req, res) => {
-  const { email, password} = req.body;
+  const { email, password } = req.body;
 
   // check email
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    res
-      .json({
-        token: userToken(user._id),
-        role: user.role,
-        Name: user.fullname,
-      })
+    res.json({
+      _id: user.id,
+      name: user.fullname,
+      email: user.email,
+      role: user.role,
+      token: userToken(user._id),
+    });
   } else {
     res.status(400).json({
-      message:"Invalid Credentials"});
+      message: "Invalid Credentials",
+    });
   }
 });
 
-
- // Create token
- const userToken =  (id) => {
+// Create token
+const userToken = (id) => {
   return jwt.sign({ id }, process.env.TOKEN, {
-    expiresIn: '1d',
-  })
-}
+    expiresIn: "24h",
+  });
+};
 
 module.exports = { Register, Login };

@@ -7,10 +7,10 @@ const accountSchema = mongoose.Schema(
       require: true,
       ref: "User",
     },
-    numero_compte:{
-        type: String,
-        required: true,
-    },
+    // numero_compte:{
+    //     type: String,
+    //     required: true,
+    // },
     solde: {
       type: Number,
       required: true,

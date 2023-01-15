@@ -11,6 +11,8 @@ const accountSchema = mongoose.Schema(
     //     type: String,
     //     required: true,
     // },
+    
+
     solde: {
       type: Number,
       required: true,

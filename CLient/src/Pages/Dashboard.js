@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import Sidebar from "../components/Sidebar";
+import NavBar from "../components/admin/NavBar";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function Dashboard() {
 
   return (
     <div className="flex">
-      <Sidebar />
+      <NavBar />
       <div className="w-1/2 sm:px-6 absolute top-1/4 left-1/4">
         <div className="px-4 md:px-10 py-4 md:py-7 bg-gray-100 rounded-tl-lg rounded-tr-lg">
           <div className="sm:flex items-center justify-between">
@@ -40,14 +40,14 @@ function Dashboard() {
           <table className="w-full whitespace-nowrap">
             <thead>
               <tr className="h-16 w-full text-sm leading-none text-gray-800">
-                <th className="font-normal text-left pl-4">Account Number</th>
-                <th className="font-normal text-left pl-4">Solde</th>
-                <th className="font-normal text-left pl-4">Agence</th>
-                <th className="font-normal text-left pl-4">Fullname</th>
-                <th className="font-normal text-left pl-12">Phone</th>
-                <th className="font-normal text-left pl-12">Adress</th>
-                <th className="font-normal text-left pl-12">CIN</th>
-                <th className="font-normal text-left pl-12">Email</th>
+                {/* <th className="font-normal text-left pl-4">Account Number</th> */}
+                <th className="font-normal text-center pl-4">Fullname</th>
+                <th className="font-normal text-center pl-12">Phone</th>
+                <th className="font-normal text-center pl-12">Adress</th>
+                <th className="font-normal text-center pl-12">CIN</th>
+                <th className="font-normal text-center pl-12">Email</th>
+                <th className="font-normal text-center pl-4">Solde</th>
+                <th className="font-normal text-center pl-4">Agence</th>
               </tr>
             </thead>
             <tbody className="w-full">
@@ -56,29 +56,30 @@ function Dashboard() {
                   key={account.id}
                   className="h-20 text-sm leading-none text-gray-800 bg-white hover:bg-gray-100 border-b border-t border-gray-100"
                 >
-                  <td className="pl-4 cursor-pointer">
+                  {/* <td className="pl-4 cursor-pointer">
                     <p className="font-medium">{account.numero_compte}</p>
+                  </td> */}
+                  
+                  <td className="pl-4 cursor-pointer">
+                    <p className="font-medium text-center">{account.user_id.fullname}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.solde}</p>
+                    <p className="font-medium text-center">{account.user_id.phone}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.agence}</p>
+                    <p className="font-medium text-center">{account.user_id.address}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.user_id.fullname}</p>
+                    <p className="font-medium text-center">{account.user_id.cin}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.user_id.phone}</p>
+                    <p className="font-medium text-center">{account.user_id.email}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.user_id.adress}</p>
+                    <p className="font-medium text-center">{account.solde}</p>
                   </td>
                   <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.user_id.cin}</p>
-                  </td>
-                  <td className="pl-4 cursor-pointer">
-                    <p className="font-medium">{account.user_id.email}</p>
+                    <p className="font-medium text-center">{account.agence}</p>
                   </td>
                 </tr>
               ))}

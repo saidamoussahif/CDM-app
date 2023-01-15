@@ -2,10 +2,10 @@ const releveBancaire = require("../Models/releveBancaireModel");
 const asyncHandler = require("express-async-handler");
 
 const getReleveBancaires = async (req, res) => {
-    const releveBancaires = await releveBancaire.find().populate("account_id");
-    res.status(200).json({
-        releveBancaires 
-    });
+  const releveBancaires = await releveBancaire.find().populate("account_id");
+  res.status(200).json({
+    releveBancaires,
+  });
 };
 
 const createReleveBancaire = asyncHandler(async (req, res) => {
@@ -37,21 +37,8 @@ const updateReleveBancaire = asyncHandler(async (req, res) => {
 
 
 
-
-
-
-
-
-const deleteReleveBancaire = asyncHandler(async (req, res) => {
-  const bankStatement = await releveBancaire.findById(req.params.id);
-
-  if (!bankStatement) {
-    res.status(400);
-    throw new error("bank statement not found");
-  }
-  await bankStatement.remove();
-
-  res.status(200).json({ message: "bank statement deleted succefuly" });
-});
-
-module.exports = { getReleveBancaires, createReleveBancaire, updateReleveBancaire, deleteReleveBancaire};
+module.exports = {
+  getReleveBancaires,
+  createReleveBancaire,
+  updateReleveBancaire,
+};

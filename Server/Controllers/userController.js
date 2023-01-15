@@ -1,4 +1,5 @@
 const User = require("../Models/userModel");
+const Account = require("../Models/accountModel");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -9,10 +10,10 @@ const Register = asyncHandler(async (req, res) => {
   // Our register logic starts here
   try {
     // Get user input
-    const { fullname, phone, cin, adress, email, password } = req.body;
+    const { fullname, phone, cin, address, email, password } = req.body;
 
     // Validate user input
-    if (!email || !password || !fullname || !phone || !cin || !adress) {
+    if (!fullname || !phone || !cin || !address || !email || !password) {
       res.status(400).send("All input is required");
     }
 
@@ -32,23 +33,27 @@ const Register = asyncHandler(async (req, res) => {
       fullname,
       phone,
       cin,
-      adress,
+      address,
       email,
       password: encryptedPass,
     });
 
     // return new user
-    res.status(201).json({
+    res.json({
       _id: user.id,
       fullname: user.fullname,
       phone: user.phone,
       cin: user.cin,
-      adress: user.adress,
+      address: user.address,
       email: user.email,
+      role: user.role,
       token: userToken(user._id),
     });
   } catch (err) {
-    console.log(err);
+    res.json({
+      message: "Invalid registred",
+      status: 400,
+    });
   }
   // Our register logic ends here
 });
@@ -63,9 +68,13 @@ const Login = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
-      name: user.fullname,
+      fullname: user.fullname,
       email: user.email,
       role: user.role,
+      cin: user.cin,
+      address: user.address,
+      email: user.email,
+      phone: user.phone,
       token: userToken(user._id),
     });
   } else {
@@ -82,4 +91,19 @@ const userToken = (id) => {
   });
 };
 
-module.exports = { Register, Login };
+//  get user by id
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id).populate({
+    options: { strictPopulate: false },
+    path: "accounts",
+  });
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+module.exports = { Register, Login, getUserById };

@@ -39,7 +39,7 @@ function Header() {
                       Home{" "}
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       href="/"
                       className="dark:text-white dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline"
@@ -47,7 +47,7 @@ function Header() {
                       {" "}
                       Services{" "}
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <a
                       href="/about"

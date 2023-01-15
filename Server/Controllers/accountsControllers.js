@@ -19,7 +19,6 @@ const createAccount = asyncHandler(async (req, res) => {
   }
 
   const Accounts = await Account.create({
-    numero_compte: req.body.numero_compte,
     user_id: req.user.id,
     solde: req.body.solde,
     agence: req.body.agence,

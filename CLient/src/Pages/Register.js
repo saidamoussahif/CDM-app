@@ -1,18 +1,43 @@
-import { React } from "react";
+import { useState } from "react";
 import icon from "../imgs/user-symbol.png";
-// import axios from "axios";
+import axios from "axios";
+import { json, useNavigate } from "react-router-dom";
 // import Error from '../components/Error'
 // import Loader from "../components/Loader";
 
 function Register() {
-  // const [fullname, setFullname] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [cin, setCin] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [cin, setCin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  // Password toggle handler
+  const Signup= async () => {
+    const data = { fullname, phone, cin, address, email, password };
+    axios.post("http://localhost:8000/api/users/register", data).then(res => {
+      // console.log("res.data")
+      if (res.data.error) {
+        alert(res.data.error);
+      } else {
+        console.log(res.data)
+        localStorage.setItem("userToken", res.data.token);
+        localStorage.setItem("id", res.data._id);
+        localStorage.setItem("user_fullname", res.data.fullname);
+        localStorage.setItem("user_phone", res.data.phone); 
+        localStorage.setItem("user_cin", res.data.cin);
+        localStorage.setItem("user_address", res.data.address);
+        localStorage.setItem("user_email", res.data.email);
+        localStorage.setItem("user_role", res.data.role);
+        if (res.data.role === "user") {
+          navigate("/");
+        } else {
+          navigate("/login");
+        }
+      }
+    });
+  }
 
   return (
     <>
@@ -38,8 +63,10 @@ function Register() {
                       placeholder="Full Name"
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       type="text"
-                      name="fullname"
-                      onChange={this.handleChange}
+                      value={fullname}
+                      onChange={(e) => {
+                        setFullname(e.target.value);
+                      }}
                       required
                     />
                     <input
@@ -47,8 +74,10 @@ function Register() {
                       type="number"
                       min={0}
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
-                      name="phone"
-                      onChange={this.handleChange}
+                      value={phone}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                      }}
                       required
                     />
                   </div>
@@ -57,16 +86,20 @@ function Register() {
                       placeholder="CIN"
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                       type="text"
-                      name="cin"
-                      onChange={this.handleChange}
+                      value={cin}
+                      onChange={(e) => {
+                        setCin(e.target.value);
+                      }}
                       required
                     />
                     <input
-                      placeholder="Adress"
+                      placeholder="Address"
                       type="text"
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
-                      name="adress"
-                      onChange={this.handleChange}
+                      value={address}
+                      onChange={(e) => {
+                        setAddress(e.target.value);
+                      }}
                       required
                     />
                   </div>
@@ -74,16 +107,20 @@ function Register() {
                     <input
                       placeholder="Email"
                       type="email"
-                      name="email"
-                      onChange={this.handleChange}
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                       required
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                     />
                     <input
                       placeholder="Password"
                       type="password"
-                      name="password"
-                      onChange={this.handleChange}
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       required
                       className="w-1/2 focus:outline-none placeholder-gray-500 py-3 px-3 text-sm leading-none text-gray-800 bg-white border rounded border-gray-200"
                     />
@@ -98,6 +135,9 @@ function Register() {
                   </a>
                   <button
                     type="submit"
+                    onClick={() => {
+                      Signup();
+                    }}
                     className="flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-opacity-80 shadow rounded text-sm text-white"
                   >
                     Submit

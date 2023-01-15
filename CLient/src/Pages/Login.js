@@ -14,19 +14,30 @@ function Login() {
       if (res.data.error) {
         alert(res.data.error);
       } else {
-        console.log(res.data)
-        localStorage.setItem("userToken", res.data.token);
-        localStorage.setItem("id", res.data._id);
-        localStorage.setItem("user_fullname", res.data.name);
-        localStorage.setItem("user_email", res.data.email);
-        localStorage.setItem("user_phone", res.data.phone); 
-        localStorage.setItem("user_address", res.data.address);
-        localStorage.setItem("user_cin", res.data.cin);
-        localStorage.setItem("user_role", res.data.role);
+        console.log(res.data);
+        if (res.data.role === "user") {
+          localStorage.setItem("userToken", res.data.token);
+          localStorage.setItem("id", res.data._id);
+          localStorage.setItem("user_fullname", res.data.fullname);
+          localStorage.setItem("user_phone", res.data.phone);
+          localStorage.setItem("user_cin", res.data.cin);
+          localStorage.setItem("user_address", res.data.address);
+          localStorage.setItem("user_email", res.data.email);
+          localStorage.setItem("user_role", res.data.role);
+          
+        } else if (res.data.role === "admin") {
+          localStorage.setItem("userToken", res.data.token);
+          localStorage.setItem("id", res.data._id);
+          localStorage.setItem("user_fullname", res.data.fullname);
+          localStorage.setItem("user_email", res.data.email);
+          localStorage.setItem("user_role", res.data.role);
+        }
+
         if (res.data.role === "user") {
           navigate("/");
         } else {
           navigate("/dashboard");
+          // window.location.href = "/dashboard";
         }
       }
     });

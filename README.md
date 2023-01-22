@@ -19,3 +19,12 @@ Develop a web platform for the bank's customers:
 - Run a docker container ( docker create, docker-compose up / -d --build)
 - Docker (build, volume creation, linking between environments (IMAGE) )
 
+
+
+
+
+
+
+# Slide presentation
+https://www.canva.com/design/DAFXq6k1Arc/RBhRhIgOXmn53cNa2KN_PA/edit?utm_content=DAFXq6k1Arc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
